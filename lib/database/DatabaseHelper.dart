@@ -48,8 +48,7 @@ class DatabaseHelper {
           "$book_id INTEGER,"
           "$cash DOUBLE,"
           "$ISCASH_IN BOOLEAN,"
-          "$date TEXT,"
-          "$time TEXT,"
+          "$date DATETIME,"
           "$payment_category TEXT,"
           "$payment_Mode TEXT"
           ");");
@@ -71,15 +70,15 @@ class DatabaseHelper {
 
   insertInfo(Information_model model) async {
     final db = await database;
+    print('${model.date.toString()}');
     var raw = await db.rawInsert(
-        "INSERT Into $Information_Table ($book_id,$cash,$ISCASH_IN,$date,$time,$payment_category,$payment_Mode)"
-        " VALUES (?,?,?,?,?,?,?)",
+        "INSERT Into $Information_Table ($book_id,$cash,$ISCASH_IN,$date,$payment_category,$payment_Mode)"
+        " VALUES (?,?,?,?,?,?)",
         [
           model.book_id,
           model.cash,
           model.isCash_In,
-          model.date,
-          model.day,
+          '${model.date.toString()}',
           model.category,
           model.mode
         ]);

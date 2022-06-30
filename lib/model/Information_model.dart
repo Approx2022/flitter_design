@@ -1,7 +1,11 @@
+import 'package:flutter/material.dart';
+
 class Information_model {
   late int id, book_id;
   late double cash;
-  late String date, day, category, mode;
+  late String  category, mode;
+  late DateTime date;
+  late TimeOfDay time;
   late bool isCash_In = true;
 
   Information_model(
@@ -10,7 +14,6 @@ class Information_model {
       required this.cash,
       required this.isCash_In,
       required this.date,
-      required this.day,
       required this.category,
       required this.mode}) {
     this.id = id ?? 0;
@@ -25,8 +28,7 @@ class Information_model {
     book_id = json['book_id'];
     cash = json['cash'];
     isCash_In = json['isCash_In'] == 1;
-    date = json['date'];
-    day = json['time'];
+    date = DateTime.tryParse(json['date'])!;
     category = json['category'];
     category = json['mode'];
   }
@@ -34,7 +36,6 @@ class Information_model {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['date'] = date;
-    data['day'] = day;
     data['category'] = category;
     data['book_id'] = book_id;
     data['cash'] = cash;

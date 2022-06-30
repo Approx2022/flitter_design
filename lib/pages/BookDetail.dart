@@ -1,9 +1,10 @@
-import 'package:flitter_design/Case_entry.dart';
+import 'package:flitter_design/pages/Case_entry.dart';
 import 'package:flitter_design/database/DatabaseHelper.dart';
+import 'package:flitter_design/pages/generatePdf.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import 'model/Information_model.dart';
+import '../model/Information_model.dart';
 
 class BookDetail extends StatefulWidget {
   String bookname;
@@ -72,27 +73,21 @@ class _BookDetailState extends State<BookDetail> {
                     Row(
                       children: [
                         Expanded(
-                          child: Container(
-                            height: 5.h,
-                            child: Text(
-                              "Net Balance",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
+                          child: Text(
+                            "Net Balance",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
                           ),
                         ),
                         Expanded(
-                          child: Container(
-                            height: 5.h,
-                            child: Text(
-                              netBalence.toString(),
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
+                          child: Text(
+                            netBalence.toString(),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
                           ),
                         )
                       ],
@@ -153,16 +148,21 @@ class _BookDetailState extends State<BookDetail> {
                         )
                       ],
                     ),
-                    Container(
-                      height: 5.h,
-                      color: Colors.white,
-                      alignment: Alignment.center,
-                      child: Text(
-                        "View Reports",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => generatePdf(widget.bookId),));
+                      },
+                      child: Container(
+                        height: 5.h,
+                        color: Colors.white,
+                        alignment: Alignment.center,
+                        child: Text(
+                          "View Reports",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16),
+                        ),
                       ),
                     ),
                   ],
@@ -180,6 +180,7 @@ class _BookDetailState extends State<BookDetail> {
                       title: Text("Cash : ${list[index].cash}"),
                       subtitle:
                           Text(list[index].isCash_In ? "Cash In" : "Cash Out"),
+                      trailing: Text("${list[index].date}"),
                     ),
                   ),
                 ),
@@ -198,7 +199,7 @@ class _BookDetailState extends State<BookDetail> {
                 child: Container(
                   height: 5.h,
                   alignment: Alignment.center,
-                  child: Text(
+                  child: const Text(
                     "Case in",
                     style: TextStyle(
                         color: Colors.black,

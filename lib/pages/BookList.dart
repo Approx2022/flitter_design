@@ -1,4 +1,4 @@
-import 'package:flitter_design/BookDetail.dart';
+import 'package:flitter_design/pages/BookDetail.dart';
 import 'package:flitter_design/database/DatabaseHelper.dart';
 import 'package:flitter_design/model/Book_model.dart';
 import 'package:flutter/material.dart';

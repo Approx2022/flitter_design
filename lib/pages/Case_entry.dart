@@ -47,12 +47,16 @@ class _Case_entryState extends State<Case_entry> {
 
   getTime() async {
     showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.now(),
-        initialEntryMode: TimePickerEntryMode.dial,
-        confirmText: "CONFIRM",
-        cancelText: "NOT NOW",
-        helpText: "BOOKING TIME");
+            context: context,
+            initialTime: day,
+            initialEntryMode: TimePickerEntryMode.dial,
+            confirmText: "CONFIRM",
+            cancelText: "NOT NOW",
+            helpText: "BOOKING TIME")
+        .then((value) {
+      if (value != null) day = value;
+      setState(() {});
+    });
     setState(() {});
   }
 
@@ -181,8 +185,9 @@ class _Case_entryState extends State<Case_entry> {
               InkWell(
                 onTap: () async {
                   await DatabaseHelper.db.insertInfo(Information_model(
-                      day: "${day.hour}:${day.minute}",
-                      date: "${date.day}-${date.month}-${date.year}",
+                      //time: day,
+                      date: DateTime(date.year, date.month, date.day, day.hour,
+                          day.minute),
                       category: category,
                       book_id: widget.book_id,
                       cash: double.parse(amount.text),
